@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sock Puppet in OSINT | 0xHM</title>
+  <style>
+    :root {
+      --light-brown: #d8bfa5;
+      --highlight-brown: #f5deb3;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: var(--light-brown);
+      font-family: 'Courier New', monospace;
+      overflow-x: hidden;
+    }
+    #stars-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+      z-index: -1;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    .article-box {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--light-brown);
+      border-radius: 10px;
+      padding: 2rem;
+    }
+    h1, h2, h3 {
+      color: var(--light-brown);
+      text-shadow: 0 0 8px rgba(216, 191, 165, 0.5);
+    }
+    p, li {
+      color: #ccc;
+      line-height: 1.8;
+    }
+    .disclaimer {
+      border: 1px solid var(--light-brown);
+      background: rgba(216, 191, 165, 0.05);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+    a {
+      color: var(--highlight-brown);
+      text-decoration: none;
+    }
+    a:hover {
+      text-shadow: 0 0 5px var(--highlight-brown);
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle var(--duration) infinite ease-in-out;
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div id="stars-bg"></div>
+  <div class="container">
+    <div class="article-box">
+      <h1>Sock Puppet Accounts in OSINT</h1>
+
+      <div class="disclaimer">
+        <strong>SECURITY DISCLAIMER:</strong><br>
+        This article is for educational and awareness purposes only. Always obtain proper authorization before any OSINT investigation. Misuse of techniques like Sock Puppet accounts can lead to legal issues and violate privacy policies.
+      </div>
+
+      <h2>What is a Sock Puppet?</h2>
+      <p>A <strong>Sock Puppet</strong> is a fake online identity created to manipulate opinions, influence discussions, or hide the real identity of a person or organization. In the context of OSINT (Open Source Intelligence), sock puppets are often used to gather information covertly or to build credibility during investigations.</p>
+
+      <h2>Role of Sock Puppets in OSINT</h2>
+      <p>In OSINT, a sock puppet can serve multiple purposes:</p>
+      <ul>
+        <li><strong>Data Gathering:</strong> Interacting with targets on social media or forums without revealing the investigator's real identity.</li>
+        <li><strong>Building Trust:</strong> Creating seemingly genuine personas to gain access to closed or semi-private communities.</li>
+        <li><strong>Verification:</strong> Cross-checking information by engaging with multiple fake identities to detect misinformation or hidden connections.</li>
+        <li><strong>Deception Detection:</strong> Understanding how adversaries use sock puppets to spread disinformation.</li>
+      </ul>
+
+      <h2>Types of Sock Puppet Accounts</h2>
+      <ul>
+        <li><strong>Simple Sock Puppets:</strong> Single fake profiles used for limited interactions.</li>
+        <li><strong>Layered Sock Puppets:</strong> Multiple interconnected fake accounts that support each other to appear authentic.</li>
+        <li><strong>Long-Term Sock Puppets:</strong> Accounts maintained over long periods to build credibility and extensive networks.</li>
+      </ul>
+
+      <h2>Ethical and Legal Considerations</h2>
+      <p>Using sock puppet accounts can easily cross ethical and legal boundaries. It is essential to:</p>
+      <ul>
+        <li>Never use sock puppets to harass, deceive, or defraud individuals or organizations.</li>
+        <li>Respect platform <a href="https://www.facebook.com/legal/terms" target="_blank">terms of service</a> and laws regarding impersonation and privacy, such as the <a href="https://www.eff.org/issues/privacy" target="_blank">Electronic Frontier Foundation's privacy guidelines</a>.</li>
+        <li>Use sock puppets only within authorized and ethical investigations with explicit permission.</li>
+      </ul>
+      <p>For example, in 2018, social media platforms took action against coordinated disinformation campaigns using sock puppets that affected elections and public opinion worldwide, demonstrating the legal and ethical consequences of misuse.</p>
+      <p>Practical advice:</p>
+      <ul>
+        <li>Always document authorization for your investigations.</li>
+        <li>Use sock puppets transparently in research environments when possible.</li>
+        <li>Be aware that many platforms deploy detection algorithms to identify and suspend sock puppet accounts.</li>
+      </ul>
+
+      <h2>Distinguishing Legitimate vs. Malicious Sock Puppets</h2>
+      <p>Not all sock puppets are malicious; some are used responsibly for research or security testing. Here’s how to differentiate:</p>
+      <ul>
+        <li><strong>Legitimate Sock Puppets:</strong> Created with clear ethical purpose, maintained carefully, avoid deception or harassment, and used within legal boundaries.</li>
+        <li><strong>Malicious Sock Puppets:</strong> Designed to deceive, spread disinformation, harass, or commit fraud. Often show signs such as recent creation, minimal personal info, erratic posting behavior, or linked to known malicious networks.</li>
+      </ul>
+      <p>For awareness, always check profile creation dates, posting patterns, and cross-reference with known threat intelligence databases (like <a href="https://www.mitre.org/" target="_blank">MITRE</a>).</p>
+
+      <h2>Popular Tools & Resources for Managing Sock Puppets</h2>
+      <ul>
+        <li><a href="https://www.maltego.com/" target="_blank" rel="noopener noreferrer">Maltego</a> – While not a sock puppet manager, it helps map connections between accounts.</li>
+        <li><a href="https://www.hootsuite.com/" target="_blank" rel="noopener noreferrer">Hootsuite</a> – Social media management platform that can help manage multiple personas.</li>
+        <li><a href="https://buffer.com/" target="_blank" rel="noopener noreferrer">Buffer</a> – Another social media scheduler useful for managing multiple profiles.</li>
+      </ul>
+
+      <h2>Trusted Sources and Further Reading</h2>
+      <ul>
+        <li><a href="https://www.social-engineer.org/framework/se-tools/computer-based-tools/sock-puppet-accounts/" target="_blank" rel="noopener noreferrer">Social-Engineer.org on Sock Puppets</a></li>
+        <li><a href="https://osintframework.com/" target="_blank" rel="noopener noreferrer">OSINT Framework</a></li>
+        <li><a href="https://www.csoonline.com/article/3303408/what-is-a-sock-puppet-account.html" target="_blank" rel="noopener noreferrer">CSO Online - What is a Sock Puppet Account?</a></li>
+      </ul>
+
+      <p style="margin-top:3rem;font-style:italic;color:#aaa;">
+        Written and curated by <strong>0xHM</strong> | For awareness, education, and responsible OSINT use.
+      </p>
+    </div>
+  </div>
+
+<script>
+  const starsBg = document.getElementById('stars-bg');
+  const starsCount = 150;
+  const stars = [];
+
+  for (let i = 0; i < starsCount; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    
+    const size = Math.random() * 2 + 0.5;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.opacity = 0.8;
+
+    star.x = Math.random() * window.innerWidth;
+    star.y = Math.random() * window.innerHeight;
+
+    star.vx = (Math.random() - 0.5) * 0.3;
+    star.vy = (Math.random() - 0.5) * 0.3;
+
+    star.style.left = star.x + 'px';
+    star.style.top = star.y + 'px';
+
+    starsBg.appendChild(star);
+    stars.push(star);
+  }
+
+  function animateStars() {
+    for (const star of stars) {
+      star.x += star.vx;
+      star.y += star.vy;
+
+      if (star.x < 0 || star.x > window.innerWidth) star.vx = -star.vx;
+      if (star.y < 0 || star.y > window.innerHeight) star.vy = -star.vy;
+
+      star.style.left = star.x + 'px';
+      star.style.top = star.y + 'px';
+    }
+    requestAnimationFrame(animateStars);
+  }
+
+  animateStars();
+
+  window.addEventListener('resize', () => {
+    for (const star of stars) {
+      if (star.x > window.innerWidth) star.x = window.innerWidth;
+      if (star.y > window.innerHeight) star.y = window.innerHeight;
+    }
+  });
+</script>
+<div style="display: flex; gap: 1rem; justify-content: center; margin-top: 3rem;">
+  <button
+    onclick="history.back()"
+    style="
+      border: 1px solid var(--light-brown);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--light-brown);
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 100px;
+      transition: all 0.3s ease;
+    "
+    onmouseover="this.style.boxShadow='0 0 8px var(--light-brown)'"
+    onmouseout="this.style.boxShadow='none'">
+    &lt; Go Back
+  </button>
+
+  <button
+    onclick="window.location.href='../../../index.html'"
+    style="
+      border: 1px solid var(--light-brown);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--light-brown);
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 120px;
+      transition: all 0.3s ease;
+    "
+    onmouseover="this.style.boxShadow='0 0 8px var(--light-brown)'"
+    onmouseout="this.style.boxShadow='none'">
+    Back to Home
+  </button>
+
+  <button
+    onclick="window.location.href='Deep_Dive_OSINT_Part_1.html'"
+    style="
+      border: 1px solid var(--light-brown);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--light-brown);
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 120px;
+      transition: all 0.3s ease;
+    "
+    onmouseover="this.style.boxShadow='0 0 8px var(--light-brown)'"
+    onmouseout="this.style.boxShadow='none'">
+    Next Steps &gt;
+  </button>
+</div>
+<div style="height: 50px;"></div>
+</body>
+</html>
+

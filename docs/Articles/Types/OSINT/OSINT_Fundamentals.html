@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OSINT Fundamentals | 0xHM</title>
+  <style>
+    :root {
+      --light-brown: #d8bfa5;
+      --highlight-brown: #f5deb3;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: var(--light-brown);
+      font-family: 'Courier New', monospace;
+      overflow-x: hidden;
+    }
+    #stars-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+      z-index: -1;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    .article-box {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--light-brown);
+      border-radius: 10px;
+      padding: 2rem;
+    }
+    h1, h2, h3 {
+      color: var(--light-brown);
+      text-shadow: 0 0 8px rgba(216, 191, 165, 0.5);
+    }
+    p, li {
+      color: #ccc;
+      line-height: 1.8;
+    }
+    .disclaimer {
+      border: 1px solid var(--light-brown);
+      background: rgba(216, 191, 165, 0.05);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+    a {
+      color: var(--highlight-brown);
+      text-decoration: none;
+    }
+    a:hover {
+      text-shadow: 0 0 5px var(--highlight-brown);
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle var(--duration) infinite ease-in-out;
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div id="stars-bg"></div>
+  <div class="container">
+    <div class="article-box">
+      <h1>OSINT Fundamentals</h1>
+
+      <div class="disclaimer">
+        <strong>SECURITY DISCLAIMER:</strong><br>
+        All content on this site is for educational and awareness purposes only. Always ensure legal authorization before conducting investigations. Do not use OSINT techniques on individuals, systems, or organizations without explicit permission. Respect privacy laws such as GDPR, CFAA, and local cybersecurity regulations.
+      </div>
+
+      <h2>What is OSINT?</h2>
+      <p>OSINT stands for <strong>Open Source Intelligence</strong>. It refers to the collection and analysis of data gathered from publicly available sources to produce actionable intelligence. OSINT is commonly used by cybersecurity professionals, journalists, law enforcement, and even ethical hackers.</p>
+
+      <h2>Why OSINT Matters</h2>
+      <p>OSINT reveals how much personal, corporate, or sensitive information is unintentionally exposed online. By learning how attackers gather such data, we can better protect individuals and infrastructures. It's a critical skill in digital forensics, cyber defense, and threat intelligence.</p>
+
+      <h2>Types of OSINT</h2>
+      <ul>
+        <li><strong>Passive OSINT</strong>: Collecting data without interacting with the target (e.g., viewing social media, public DNS, WHOIS records).</li>
+        <li><strong>Active OSINT</strong>: Gathering data by engaging with a system or service (e.g., port scanning, phishing simulation — this may cross legal boundaries).</li>
+        <li><strong>Technical OSINT</strong>: IP addresses, DNS data, SSL certificates, metadata, device fingerprints.</li>
+        <li><strong>Human OSINT (SOCMINT)</strong>: Social media monitoring, online behavior, affiliations, public interactions.</li>
+        <li><strong>Dark Web OSINT</strong>: Intelligence from onion services (.onion), leaked data, or forums hidden from public search engines.</li>
+      </ul>
+
+      <h2>Common OSINT Tools (with official links)</h2>
+      <ul>
+        <li><a href="https://www.maltego.com/" target="_blank">Maltego</a> – Link analysis and network intelligence visualization.</li>
+        <li><a href="https://github.com/smicallef/spiderfoot" target="_blank">SpiderFoot</a> – Automates data collection across multiple sources.</li>
+        <li><a href="https://github.com/laramies/theHarvester" target="_blank">theHarvester</a> – Email, domain, and subdomain reconnaissance.</li>
+        <li><a href="https://github.com/lanmaster53/recon-ng" target="_blank">Recon-ng</a> – Full-featured web reconnaissance framework.</li>
+      </ul>
+
+      <h2>Benefits of OSINT</h2>
+      <ul>
+        <li>Helps organizations identify data leaks.</li>
+        <li>Supports penetration testing and red teaming.</li>
+        <li>Aids incident response and threat hunting.</li>
+        <li>Empowers journalists and investigators with public truth.</li>
+      </ul>
+
+      <h2>Risks and Legal Concerns</h2>
+      <ul>
+        <li>Even public data can be sensitive — misuse can lead to legal consequences.</li>
+        <li>Active OSINT may violate terms of service or privacy laws.</li>
+        <li>Always validate sources. Misinformation spreads quickly in open channels.</li>
+      </ul>
+
+      <h2>Trusted Sources and Further Reading</h2>
+      <ul>
+        <li><a href="https://www.maltego.com/" target="_blank">Maltego – Official Site</a></li>
+        <li><a href="https://github.com/smicallef/spiderfoot" target="_blank">SpiderFoot – Official GitHub</a></li>
+        <li><a href="https://github.com/laramies/theHarvester" target="_blank">theHarvester – Official GitHub</a></li>
+        <li><a href="https://github.com/lanmaster53/recon-ng" target="_blank">Recon‑ng – Official GitHub</a></li>
+        <li><a href="https://osintframework.com/" target="_blank">OSINT Framework – Categorized Resource Map</a></li>
+      </ul>
+
+      <p style="margin-top:3rem;font-style:italic;color:#aaa;">
+        Written and curated by <strong>0xHM</strong> | For awareness, education, and responsible OSINT practice.
+      </p>
+    </div>
+  </div>
+
+<script>
+  const starsBg = document.getElementById('stars-bg');
+  const starsCount = 150;
+  const stars = [];
+
+  for (let i = 0; i < starsCount; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    
+    const size = Math.random() * 2 + 0.5;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.opacity = 0.8;
+
+    star.x = Math.random() * window.innerWidth;
+    star.y = Math.random() * window.innerHeight;
+
+    star.vx = (Math.random() - 0.5) * 0.3;
+    star.vy = (Math.random() - 0.5) * 0.3;
+
+    star.style.left = star.x + 'px';
+    star.style.top = star.y + 'px';
+
+    starsBg.appendChild(star);
+    stars.push(star);
+  }
+
+  function animateStars() {
+    for (const star of stars) {
+      star.x += star.vx;
+      star.y += star.vy;
+
+      if (star.x < 0 || star.x > window.innerWidth) star.vx = -star.vx;
+      if (star.y < 0 || star.y > window.innerHeight) star.vy = -star.vy;
+
+      star.style.left = star.x + 'px';
+      star.style.top = star.y + 'px';
+    }
+    requestAnimationFrame(animateStars);
+  }
+
+  animateStars();
+
+  window.addEventListener('resize', () => {
+    for (const star of stars) {
+      if (star.x > window.innerWidth) star.x = window.innerWidth;
+      if (star.y > window.innerHeight) star.y = window.innerHeight;
+    }
+  });
+</script>
+<div style="display: flex; gap: 1rem; justify-content: center; margin-top: 3rem;">
+  <button
+    onclick="history.back()"
+    style="
+      border: 1px solid var(--light-brown);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--light-brown);
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 100px;
+      transition: all 0.3s ease;
+    ""
+    onmouseover="this.style.boxShadow='0 0 8px var(--light-brown)'"
+    onmouseout="this.style.boxShadow='none'">
+    &lt; Go Back
+  </button>
+
+  <button
+    onclick="window.location.href='../../../index.html'"
+    style="
+      border: 1px solid var(--light-brown);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--light-brown);
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 120px;
+      transition: all 0.3s ease;
+    "
+    onmouseover="this.style.boxShadow='0 0 8px var(--light-brown)'"
+    onmouseout="this.style.boxShadow='none'">
+    Back to Home
+  </button>
+
+  <button
+    onclick="window.location.href='Sock_Puppet.html'"
+    style="
+      border: 1px solid var(--light-brown);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--light-brown);
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 120px;
+      transition: all 0.3s ease;
+    "
+    onmouseover="this.style.boxShadow='0 0 8px var(--light-brown)'"
+    onmouseout="this.style.boxShadow='none'">
+    Next Steps &gt;
+  </button>
+</div>
+
+<div style="height: 50px;"></div>
+</body>
+</html>

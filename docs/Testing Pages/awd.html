@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>0xHM | Cybersecurity Mentor</title>
+  <style>
+    :root {
+      --hacker-green: #00ff41;
+      --hacker-blue: #0500ff;
+      --hacker-purple: #9d00ff;
+      --hacker-red: #ff0000;
+      --hacker-yellow: #ffff00;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: white;
+      font-family: 'Courier New', monospace;
+      background-color: #000;
+      overflow-x: hidden;
+    }
+
+    #stars-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+      overflow: hidden;
+    }
+
+    .center-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .dynamic-name {
+      font-size: 5rem;
+      margin: 0;
+      background: linear-gradient(90deg, var(--hacker-purple), var(--hacker-blue), var(--hacker-green));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: titleGlow 8s infinite alternate;
+      text-shadow: 0 0 10px rgba(157, 0, 255, 0.5);
+      letter-spacing: 5px;
+    }
+
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 15px var(--hacker-purple); }
+      50% { text-shadow: 0 0 20px var(--hacker-blue); }
+      100% { text-shadow: 0 0 15px var(--hacker-green); }
+    }
+
+    .personal-message {
+      font-size: 1.5rem;
+      margin: 1.5rem 0;
+      color: var(--hacker-green);
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 5px rgba(0, 255, 65, 0.4); }
+      50% { text-shadow: 0 0 20px rgba(0, 255, 65, 0.8); }
+    }
+
+    .advice-section {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 800px;
+      margin: 3rem auto;
+    }
+
+    .advice-container {
+      padding: 1.5rem;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid;
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .advice-container:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--advice-color), transparent);
+    }
+
+    .advice-container:nth-child(1) { --advice-color: var(--hacker-green); border-color: var(--hacker-green); }
+    .advice-container:nth-child(2) { --advice-color: var(--hacker-blue); border-color: var(--hacker-blue); }
+    .advice-container:nth-child(3) { --advice-color: var(--hacker-purple); border-color: var(--hacker-purple); }
+
+    .advice-title {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--advice-color);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .advice-content {
+      color: #eee;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .advice-quote {
+      font-style: italic;
+      color: var(--advice-color);
+      margin-top: 1rem;
+      padding-left: 1rem;
+      border-left: 2px solid var(--advice-color);
+    }
+
+    .social-sidebar {
+      position: fixed;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 0 15px 15px 0;
+      z-index: 100;
+      backdrop-filter: blur(5px);
+      border-right: 2px solid var(--hacker-green);
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      transition: all 0.3s ease;
+      object-fit: contain;
+    }
+
+    .social-icon:hover {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 5px var(--hacker-green));
+    }
+
+    .achievements-section {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .achievements-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      background: linear-gradient(90deg, var(--hacker-green), var(--hacker-blue), var(--hacker-purple), var(--hacker-red), var(--hacker-yellow)) border-box;
+      -webkit-mask: 
+      linear-gradient(#fff 0 0) padding-box, 
+      linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask: 
+      linear-gradient(#fff 0 0) padding-box, 
+      linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      animation: borderGradient 8s infinite alternate;
+      z-index: -1;
+    }
+
+    @keyframes borderGradient {
+      0% {
+        border-image-source: linear-gradient(90deg, var(--hacker-green), var(--hacker-blue));
+      }
+      25% {
+        border-image-source: linear-gradient(90deg, var(--hacker-blue), var(--hacker-purple));
+      }
+      50% {
+        border-image-source: linear-gradient(90deg, var(--hacker-purple), var(--hacker-red));
+      }
+      75% {
+        border-image-source: linear-gradient(90deg, var(--hacker-red), var(--hacker-yellow));
+      }
+      100% {
+        border-image-source: linear-gradient(90deg, var(--hacker-yellow), var(--hacker-green));
+      }
+    }
+
+    .achievements-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, var(--hacker-green), var(--hacker-blue), var(--hacker-purple), var(--hacker-red), var(--hacker-yellow));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: titleGradient 8s infinite alternate;
+      background-size: 300% 300%;
+    }
+
+    @keyframes titleGradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .achievement-item {
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .achievement-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      background: linear-gradient(90deg, var(--hacker-green), var(--hacker-blue), var(--hacker-purple), var(--hacker-red), var(--hacker-yellow)) border-box;
+      -webkit-mask: 
+      linear-gradient(#fff 0 0) padding-box, 
+      linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask: 
+      linear-gradient(#fff 0 0) padding-box, 
+      linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      animation: borderGradient 8s infinite alternate;
+      z-index: -1;
+    }
+
+    .achievement-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 255, 65, 0.3);
+    }
+
+    .achievement-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1rem;
+      fill: currentColor;
+      transition: all 0.3s ease;
+    }
+
+    .achievement-item:hover .achievement-icon {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 8px currentColor);
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle var(--duration) infinite ease-in-out;
+      opacity: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div id="stars-bg"></div>
+
+  <div class="social-sidebar">
+    <a href="https://x.com/0xHM0" target="_blank" title="X">
+      <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <g><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#00ff41"></path></g>
+      </svg>
+    </a>
+    <a href="https://www.instagram.com/qw.yj/" target="_blank" title="Instagram">
+      <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#00ff41">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+      </svg>
+    </a>
+    <a href="https://tryhackme.com/p/0xhm019" target="_blank" title="TryHackMe">
+      <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#00ff41">
+        <path d="M12 0L0 6l12 6 12-6zM0 18l12 6 12-6v-6L12 18l-12-6z"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="center-container">
+    <h1 class="dynamic-name" id="dynamic-name">0xHM</h1>
+    <div class="personal-message">(A Message For You:)</div>
+
+    <div class="advice-section">
+      <div class="advice-container">
+        <div class="advice-title">(To The Beginners:)</div>
+        <div class="advice-content">
+          The path starts with your first terminal command. Every cybersecurity expert began exactly where you are now. Master these fundamentals first: networking protocols (TCP/IP, DNS, HTTP), Linux command line basics, and how data flows between systems. Create a home lab using VirtualBox. When stuck, remember - the answer is always just a well-phrased Google search away.
+        </div>
+        <div class="advice-quote">
+          "The expert in anything was once a beginner who refused to quit"
+        </div>
+      </div>
+
+      <div class="advice-container">
+        <div class="advice-title">(To The Hesitant:)</div>
+        <div class="advice-content">
+          Your current frustration is proof you're growing. When CTF challenges seem impossible or concepts feel overwhelming, this is when real learning happens. Break each problem into tiny steps. Celebrate every small victory. Document your progress. The cybersecurity world needs diverse thinkers like you - your unique perspective might solve tomorrow's big security challenges.
+        </div>
+        <div class="advice-quote">
+          "Every master was once a student who chose persistence over perfection"
+        </div>
+      </div>
+
+      <div class="advice-container">
+        <div class="advice-title">(To The Professionals:)</div>
+        <div class="advice-content">
+          Your expertise carries responsibility. Mentor newcomers with patience - remember your own early struggles. Share unconventional solutions that aren't in textbooks. Stay humble; the threat landscape evolves daily. Build bridges, not gates. Your greatest legacy won't be systems secured, but professionals you inspired to continue the work.
+        </div>
+        <div class="advice-quote">
+          "True leadership in cybersecurity means lighting torches, not hoarding knowledge"
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements Section -->
+    <div class="achievements-section">
+      <h2 class="achievements-title">My Achievements:</h2>
+      
+      <div class="achievement-item" onclick="window.location.href='Cisco-Academy.html'">
+        <svg class="achievement-icon" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z" fill="currentColor"/>
+          <path d="M12 6a6 6 0 100 12 6 6 0 000-12zm0 10a4 4 0 110-8 4 4 0 010 8z" opacity="0.3" fill="currentColor"/>
+        </svg>
+        Cisco Academy
+      </div>
+      
+      <div class="achievement-item" onclick="window.location.href='tcm.html'">
+        <svg class="achievement-icon" viewBox="0 0 24 24">
+          <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm0 2.5L20 9v6l-8 4-8-4V9l8-4.5z" fill="currentColor"/>
+          <path d="M12 16l-4-2v-4l4 2 4-2v4l-4 2z" fill="#fff"/>
+          <path d="M12 12l-4-2v-2l4 2 4-2v2l-4 2z" fill="#fff" opacity="0.7"/>
+        </svg>
+        TCM Security
+      </div>
+      
+      <div class="achievement-item" onclick="window.location.href='tryhackme.html'">
+        <svg class="achievement-icon" viewBox="0 0 24 24">
+          <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.5L20 9v6l-8 4-8-4V9l8-4.5z" fill="currentColor"/>
+          <path d="M12 16l-4-2v-4l4 2 4-2v4l-4 2z" fill="#000"/>
+          <path d="M12 12l-4-2v-2l4 2 4-2v2l-4 2z" fill="#000" opacity="0.5"/>
+          <circle cx="12" cy="12" r="2" fill="#000" opacity="0.2"/>
+        </svg>
+        TryHackMe
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const starsBg = document.getElementById('stars-bg');
+    const starsCount = 300;
+
+    for (let i = 0; i < starsCount; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 2;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
+      star.style.animationDelay = `${Math.random() * 10}s`;
+      starsBg.appendChild(star);
+    }
+
+    const nameElement = document.getElementById('dynamic-name');
+    const originalName = "0xHM";
+    const allChars = "!@#$%^&*()_+-=[]{}|;:,.<>?/~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    function randomChar() {
+      return allChars[Math.floor(Math.random() * allChars.length)];
+    }
+
+    function glitchSingleChar(index) {
+      const currentText = nameElement.textContent.split('');
+      currentText[index] = randomChar();
+      nameElement.textContent = currentText.join('');
+    }
+
+    function startGlitchCycle() {
+      for (let i = 0; i < originalName.length; i++) {
+        if (Math.random() > 0.3) {
+          glitchSingleChar(i);
+        }
+      }
+    }
+
+    function resetToOriginal() {
+      nameElement.textContent = originalName;
+    }
+
+    function glitchEffect() {
+      let glitchInterval = setInterval(startGlitchCycle, 100);
+      setTimeout(() => {
+        clearInterval(glitchInterval);
+        resetToOriginal();
+        setTimeout(glitchEffect, 5000);
+      }, 10000);
+    }
+
+    setTimeout(glitchEffect, 2000);
+
+    // Dynamic color cycling for achievement items
+    const achievementItems = document.querySelectorAll('.achievement-item');
+    const colors = ['#00ff41', '#0500ff', '#9d00ff', '#ff0000', '#ffff00'];
+    let currentIndex = 0;
+
+    function cycleColors() {
+      achievementItems.forEach(item => {
+        item.style.color = colors[currentIndex];
+        const icon = item.querySelector('.achievement-icon');
+        if (icon) {
+          icon.style.color = colors[currentIndex];
+        }
+      });
+      
+      currentIndex = (currentIndex + 1) % colors.length;
+    }
+
+    setInterval(cycleColors, 1500);
+  </script>
+<div style="text-align: center; margin-top: 2rem;">
+  <a href="My-Articles.html" style="
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    font-family: 'Courier New', monospace;
+    color: #ff0000;
+    border: 2px solid #ff0000;
+    border-radius: 30px;
+    text-decoration: none; 
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  " onmouseover="this.style.backgroundColor='#ff0000'; this.style.color='black'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#ff0000'">
+    My Articles
+  </a>
+</div>
+<div style="height: 200px;"></div>
+</body>
+</html>

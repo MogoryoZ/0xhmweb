@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deep Dive: OSINT Part 2 | 0xHM</title>
+  <style>
+    :root {
+      --light-brown: #d8bfa5;
+      --highlight-brown: #f5deb3;
+      --background-dark: #000;
+      --text-light: #ccc;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--background-dark);
+      color: var(--text-light);
+      font-family: 'Courier New', monospace;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+    #stars-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+      z-index: -1;
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle var(--duration) infinite ease-in-out;
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5);}
+      50% { opacity: 1; transform: scale(1);}
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem 2rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .article-box {
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid var(--light-brown);
+      border-radius: 10px;
+      padding: 2rem;
+      box-sizing: border-box;
+      line-height: 1.8;
+      color: var(--text-light);
+    }
+    h1, h2, h3 {
+      color: var(--light-brown);
+      text-shadow: 0 0 8px rgba(216, 191, 165, 0.5);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    p, li {
+      margin-bottom: 1rem;
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+    ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    a {
+      color: var(--highlight-brown);
+      text-decoration: none;
+    }
+    a:hover {
+      text-shadow: 0 0 6px var(--highlight-brown);
+    }
+    .disclaimer {
+      border: 1px solid var(--light-brown);
+      background: rgba(216, 191, 165, 0.05);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      font-style: italic;
+      color: var(--highlight-brown);
+    }
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+    .btn {
+      border: 1px solid var(--light-brown);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--light-brown);
+      text-decoration: none;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      text-align: center;
+      min-width: 100px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      cursor: pointer;
+      user-select: none;
+    }
+    .btn:hover {
+      box-shadow: 0 0 8px var(--light-brown);
+    }
+  </style>
+</head>
+<body>
+  <div id="stars-bg"></div>
+  <div class="container">
+    <div class="article-box">
+      <h1>Deep Dive: OSINT Part 2</h1>
+      <h2>Learn how advanced OSINT tactics using automation, search engine operators, and geolocation tools can take your investigations further</h2>
+      <div class="disclaimer">
+        <strong>SECURITY DISCLAIMER:</strong> <br />
+        This article is provided strictly for educational, awareness, and responsible OSINT use. All techniques discussed must be employed legally, ethically, and with proper authorization. Unauthorized use may violate privacy laws and lead to serious legal consequences.
+      </div>
+      <div id="article-content">
+        <h3>Introduction to Advanced OSINT</h3>
+        <p>In this second part of our OSINT deep dive, we move beyond the fundamentals to explore advanced techniques that leverage automation, sophisticated search engine operators, and geolocation tools. The goal is to empower digital investigators with the knowledge and tactics necessary to extract, correlate, and visualize intelligence with high precision.</p>
+        <p>Before diving into the technicals, it's important to reiterate: <strong>all techniques shared here are for educational and awareness purposes only</strong>. This knowledge must be used ethically, responsibly, and in accordance with local and international laws.</p>
+
+        <h3>1. The Power of Automation in OSINT</h3>
+        <p>Automation is a game-changer in OSINT. Manual data collection can be time-consuming and error-prone. Automating repetitive tasks not only saves time but allows you to scale your investigation across multiple data sources. Some of the top tools and frameworks include:</p>
+        <ul>
+          <li><a href="https://github.com/smicallef/spiderfoot" target="_blank">SpiderFoot</a>: Automates data collection from over 200 sources. Useful for footprinting domains, emails, usernames, and more.</li>
+          <li><a href="https://github.com/laramies/theHarvester" target="_blank">theHarvester</a>: Gathers emails, subdomains, hosts, employee names, and open ports using public sources like Google, Bing, Shodan.</li>
+          <li><a href="https://github.com/sundowndev/PhoneInfoga" target="_blank">PhoneInfoga</a>: Advanced information gathering tool for phone numbers using multiple formats and OSINT sources.</li>
+          <li><a href="https://github.com/michenriksen/aquatone" target="_blank">Aquatone</a>: Takes screenshots of websites across subdomains, useful for target reconnaissance.</li>
+          <li><a href="https://github.com/darkoperator/dnsrecon" target="_blank">dnsrecon</a>: DNS enumeration tool to gather information about domain infrastructure.</li>
+        </ul>
+
+        <h3>2. Scripting OSINT with Python</h3>
+        <p>If you want total control, writing your own OSINT scripts in Python gives you freedom to customize everything. Here’s an example of what you can do:</p>
+        <ul>
+          <li>Use <code>requests</code> to interact with APIs like Shodan, Censys, or VirusTotal.</li>
+          <li>Use <code>BeautifulSoup</code> or <code>lxml</code> to scrape and parse HTML pages.</li>
+          <li>Automate Google dorks with rotating proxies using <code>selenium</code>.</li>
+          <li>Build a Telegram bot to monitor Twitter accounts using Tweepy and schedule alerts with <code>apscheduler</code>.</li>
+        </ul>
+        <p>Ethical note: scraping or automating interactions with a service must always respect that site's robots.txt and terms of service. Avoid denial-of-service effects or illegal scraping.</p>
+
+        <h3>3. Mastering Search Engine Operators (Dorks)</h3>
+        <p>Search engines are the surface of the web—unless you know how to dig deeper. Search engine operators allow for extremely precise queries. This is often referred to as "Google Dorking." Here are some common and powerful dorks:</p>
+        <ul>
+          <li><code>site:</code> Restricts results to a specific domain. E.g., <code>site:example.com</code></li>
+          <li><code>filetype:</code> Finds specific file extensions. E.g., <code>filetype:pdf site:.gov</code></li>
+          <li><code>intitle:</code> Searches inside HTML titles. Useful for login pages. E.g., <code>intitle:"index of"</code></li>
+          <li><code>inurl:</code> Searches inside URLs. E.g., <code>inurl:admin</code></li>
+          <li><code>-</code> Excludes terms. E.g., <code>login -site:github.com</code></li>
+        </ul>
+        <p>Try combining operators: <code>site:.edu filetype:xls "student grades"</code>. Results can be surprisingly revealing.</p>
+
+        <h3>4. Image & Video Geolocation Techniques</h3>
+        <p>Geolocation is a vital skill in OSINT. Determining where a photo or video was taken can lead to breakthroughs in investigations.</p>
+        <ul>
+          <li><strong>EXIF Metadata:</strong> Tools like <a href="https://exiftool.org/" target="_blank">ExifTool</a> can extract GPS coordinates from photos if metadata is intact.</li>
+          <li><strong>Google Earth & Maps:</strong> Compare buildings, terrain, and shadows.</li>
+          <li><strong>SunCalc:</strong> Useful for estimating time of day by sun position: <a href="https://www.suncalc.org/" target="_blank">SunCalc.org</a>.</li>
+          <li><strong>Mapillary / OpenStreetCam:</strong> Community-contributed street views not available on Google Maps.</li>
+          <li><strong>Street address detection:</strong> OCR tools like Tesseract help read text in photos that hint to location.</li>
+        </ul>
+        <p>Combine clues: look at vegetation, languages on signs, car plates, shadows, and satellite imagery.</p>
+
+        <h3>5. Metadata Extraction & File Intelligence</h3>
+        <p>Metadata exists everywhere: documents, PDFs, images, videos, and even audio. Tools to extract metadata include:</p>
+        <ul>
+          <li><a href="https://exiftool.org/" target="_blank">ExifTool</a> - Universal metadata reader.</li>
+          <li><a href="https://www.sno.phy.queensu.ca/~phil/exiftool/" target="_blank">Phil Harvey's EXIFTool</a> - Extracts timestamps, GPS, author, camera model, etc.</li>
+          <li><a href="https://github.com/dutchcoders/mitmproxy2swagger" target="_blank">mitmproxy2swagger</a> - Great for inspecting mobile traffic for API endpoints.</li>
+        </ul>
+
+        <h3>6. Legal Considerations in OSINT Automation</h3>
+        <p>Automation does not exempt you from responsibility. Even when data is publicly accessible, mass harvesting may violate:</p>
+        <ul>
+          <li>Terms of Service (ToS) of the platform</li>
+          <li>Data protection laws (GDPR, CCPA)</li>
+          <li>Computer Fraud and Abuse Act (CFAA) in the U.S.</li>
+          <li>Local cybersecurity, telecom, or privacy laws</li>
+        </ul>
+        <p>⚠️ Always understand the legal framework in your jurisdiction and consult a legal advisor before deploying automation in sensitive investigations.</p>
+
+        <h3>7. Social Media Intelligence (SOCMINT) and Automation</h3>
+        <p>Social media platforms are a treasure trove for OSINT investigations. Automated tools help scale the collection and analysis of social profiles, posts, images, and connections.</p>
+        <ul>
+          <li><a href="https://maltego.com/" target="_blank" rel="noopener noreferrer">Maltego</a>: Graph-based link analysis tool great for mapping social connections and entities.</li>
+          <li><a href="https://github.com/twintproject/twint" target="_blank" rel="noopener noreferrer">TWINT</a>: An advanced Twitter scraping tool that doesn't require API keys.</li>
+          <li><a href="https://hootsuite.com/" target="_blank" rel="noopener noreferrer">Hootsuite</a>: For managing multiple social accounts and monitoring keywords.</li>
+          <li><a href="https://github.com/soxoj/instaloader" target="_blank" rel="noopener noreferrer">Instaloader</a>: Command-line tool to download Instagram public data.</li>
+          <li><a href="https://github.com/davidtaylorhq/RedNotebook" target="_blank" rel="noopener noreferrer">RedNotebook</a>: Note-taking and journaling tool useful for tracking investigation details.</li>
+        </ul>
+        <p>Automation scripts can monitor keyword mentions, hashtags, and geotags, providing near-real-time situational awareness.</p>
+
+        <h3>8. Public Data Sets and Breach Data Analysis</h3>
+        <p>Access to large public datasets and leaked databases can provide context and clues:</p>
+        <ul>
+          <li><a href="https://haveibeenpwned.com/" target="_blank" rel="noopener noreferrer">Have I Been Pwned</a>: Check if email addresses or domains appear in breach data.</li>
+          <li><a href="https://intelx.io/" target="_blank" rel="noopener noreferrer">IntelX</a>: Search through vast public data leaks, documents, and archives.</li>
+          <li><a href="https://www.dehashed.com/" target="_blank" rel="noopener noreferrer">DeHashed</a>: Similar to Have I Been Pwned but with extended dataset coverage.</li>
+        </ul>
+        <p>Always validate breach data with caution; false positives and outdated data exist. Use this info only within legal bounds.</p>
+
+        <h3>9. Identity Correlation and Link Analysis</h3>
+        <p>One of the most challenging aspects is linking disparate data points to identify real individuals or organizations.</p>
+        <ul>
+          <li>Combine usernames, email addresses, IP logs, and social media handles.</li>
+          <li>Use graph databases like <a href="https://neo4j.com/" target="_blank" rel="noopener noreferrer">Neo4j</a> to visualize connections.</li>
+          <li>Apply fuzzy matching algorithms to detect similar names or aliases.</li>
+          <li>Leverage natural language processing (NLP) to analyze text patterns and sentiments.</li>
+        </ul>
+
+        <h3>10. Operational Security (OPSEC) in OSINT Investigations</h3>
+        <p>While gathering intelligence, your own privacy and security must be protected:</p>
+        <ul>
+          <li>Use VPNs and proxies to hide your IP and location.</li>
+          <li>Employ sandboxed environments or virtual machines for risky tools.</li>
+          <li>Avoid using personal accounts to access sensitive data.</li>
+          <li>Keep logs and data encrypted and securely stored.</li>
+        </ul>
+        <p>Failure to maintain OPSEC can expose investigators to retaliation or legal risk.</p>
+
+        <h3>11. API-Driven OSINT Tools</h3>
+        <p>Many OSINT platforms provide APIs for automated querying:</p>
+        <ul>
+          <li><a href="https://developer.shodan.io/" target="_blank" rel="noopener noreferrer">Shodan API</a>: For internet-connected device discovery.</li>
+          <li><a href="https://developer.twitter.com/en/docs/twitter-api" target="_blank" rel="noopener noreferrer">Twitter API</a>: Access tweets, users, and trends programmatically.</li>
+          <li><a href="https://developers.facebook.com/docs/graph-api/" target="_blank" rel="noopener noreferrer">Facebook Graph API</a>: For public Facebook data retrieval.</li>
+          <li><a href="https://developers.google.com/custom-search/v1/overview" target="_blank" rel="noopener noreferrer">Google Custom Search API</a>: Customized web search automation.</li>
+        </ul>
+        <p>APIs typically have usage limits and require registration. Always respect rate limits and data privacy policies.</p>
+
+        <h3>12. Practical Example: Automating Location Analysis</h3>
+        <p>Suppose you find a publicly posted photo of an event. Steps to automate geolocation might include:</p>
+        <ol>
+          <li>Extract EXIF GPS data using <code>ExifTool</code> or Python libraries like <code>piexif</code>.</li>
+          <li>Parse image content for landmarks using computer vision APIs like Google Vision or AWS Rekognition.</li>
+          <li>Cross-reference extracted coordinates with Google Maps API to generate precise location data.</li>
+          <li>Visualize data points on a map using <a href="https://leafletjs.com/" target="_blank" rel="noopener noreferrer">Leaflet.js</a> or similar libraries.</li>
+        </ol>
+        <p>This process can be scripted to handle thousands of images for investigative projects.</p>
+
+        <h3>13. Responsible Use and Ethical Considerations</h3>
+        <p>OSINT has powerful capabilities but also significant risks if misused. Always:</p>
+        <ul>
+          <li>Obtain explicit permission when investigating individuals or private entities.</li>
+          <li>Respect privacy laws in your jurisdiction.</li>
+          <li>Avoid intrusive or harmful data collection.</li>
+          <li>Disclose findings responsibly, especially if publicized.</li>
+        </ul>
+        <p>Remember, ethical OSINT protects both investigator and subject from legal and moral harm.</p>
+
+        <h3>Conclusion</h3>
+        <p>Advanced OSINT techniques combining automation, precise search operators, and geolocation tools open new horizons for digital investigators. Mastering these tactics enables rapid, scalable, and lawful information gathering that can support cybersecurity, journalism, law enforcement, and research.</p>
+        <p>Always stay updated on new tools, evolving legal frameworks, and ethical best practices. Use this knowledge wisely and responsibly.</p>
+
+        <p style="margin-top: 3rem; font-style: italic; color: var(--highlight-brown);">
+          Written and curated by <strong>0xHM</strong> | For awareness, education, and responsible OSINT use.
+        </p>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn" onclick="history.back()">&lt; Go Back</button>
+      <button class="btn" onclick="window.location.href='../../../index.html'">Back to Home</button>
+      <button class="btn" onclick="window.location.href='../../../Soon.html'">Next Steps &gt;</button>
+    </div>
+  </div>
+
+<script>
+  const starsBg = document.getElementById('stars-bg');
+  const starsCount = 150;
+  const stars = [];
+
+  for (let i = 0; i < starsCount; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    
+    const size = Math.random() * 2 + 0.5;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.opacity = 0.8;
+
+    star.x = Math.random() * window.innerWidth;
+    star.y = Math.random() * window.innerHeight;
+
+    star.vx = (Math.random() - 0.5) * 0.3;
+    star.vy = (Math.random() - 0.5) * 0.3;
+
+    star.style.left = star.x + 'px';
+    star.style.top = star.y + 'px';
+
+    starsBg.appendChild(star);
+    stars.push(star);
+  }
+
+  function animateStars() {
+    for (const star of stars) {
+      star.x += star.vx;
+      star.y += star.vy;
+
+      if (star.x < 0 || star.x > window.innerWidth) star.vx = -star.vx;
+      if (star.y < 0 || star.y > window.innerHeight) star.vy = -star.vy;
+
+      star.style.left = star.x + 'px';
+      star.style.top = star.y + 'px';
+    }
+    requestAnimationFrame(animateStars);
+  }
+
+  animateStars();
+
+  window.addEventListener('resize', () => {
+    for (const star of stars) {
+      if (star.x > window.innerWidth) star.x = window.innerWidth;
+      if (star.y > window.innerHeight) star.y = window.innerHeight;
+    }
+  });
+</script>
+
+<div style="height: 50px;"></div>
+</body>
+</html>
