@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deep Dive: OSINT Part 1 | 0xHM</title>
+  <style>
+    :root {
+      --light-brown: #d8bfa5;
+      --highlight-brown: #f5deb3;
+      --background-dark: #000;
+      --text-light: #ccc;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--background-dark);
+      color: var(--text-light);
+      font-family: 'Courier New', monospace;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+    #stars-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+      z-index: -1;
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle var(--duration) infinite ease-in-out;
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5);}
+      50% { opacity: 1; transform: scale(1);}
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem 2rem 5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .article-box {
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid var(--light-brown);
+      border-radius: 10px;
+      padding: 2rem;
+      box-sizing: border-box;
+      line-height: 1.8;
+      color: var(--text-light);
+    }
+    h1, h2, h3 {
+      color: var(--light-brown);
+      text-shadow: 0 0 8px rgba(216, 191, 165, 0.5);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    p, li {
+      margin-bottom: 1rem;
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+    ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    a {
+      color: var(--highlight-brown);
+      text-decoration: none;
+    }
+    a:hover {
+      text-shadow: 0 0 6px var(--highlight-brown);
+    }
+    .disclaimer {
+      border: 1px solid var(--light-brown);
+      background: rgba(216, 191, 165, 0.05);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      font-style: italic;
+      color: var(--highlight-brown);
+    }
+    /* Buttons container */
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+    .btn {
+      border: 1px solid var(--light-brown);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--light-brown);
+      text-decoration: none;
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      text-align: center;
+      min-width: 100px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      cursor: pointer;
+      user-select: none;
+    }
+    .btn:hover {
+      box-shadow: 0 0 8px var(--light-brown);
+    }
+  </style>
+</head>
+<body>
+  <div id="stars-bg"></div>
+
+  <div class="container">
+    <div class="article-box">
+      <h1>Deep Dive: OSINT Part 1</h1>
+      <h2>Begin your in-depth journey into OSINT techniques and structured methodologies for effective digital investigations</h2>
+
+      <div class="disclaimer">
+        <strong>SECURITY DISCLAIMER:</strong> <br />
+        This article is provided strictly for educational, awareness, and responsible OSINT use. All techniques discussed must be employed legally, ethically, and with proper authorization. Unauthorized use may violate privacy laws and lead to serious legal consequences.
+      </div>
+
+      <!-- Start Article Content -->
+      <p>Open Source Intelligence (OSINT) represents a powerful field of information gathering that leverages publicly available data for investigative, research, and security purposes. This first part of our deep dive focuses on fundamental OSINT techniques and structured methodologies that form the backbone of effective and responsible digital investigations.</p>
+
+      <p>As digital footprints grow exponentially, the ability to systematically collect, analyze, and validate open source data is more crucial than ever. Whether you are a cybersecurity professional, journalist, researcher, or enthusiast, mastering these methodologies ensures your investigations are precise, lawful, and ethical.</p>
+
+      <h3>1. Understanding OSINT: Definition and Scope</h3>
+      <p>OSINT refers to the collection and analysis of information from publicly available sources. Unlike traditional intelligence, OSINT excludes classified or proprietary information, instead focusing on:</p>
+      <ul>
+        <li>Internet websites and social media</li>
+        <li>Public government data and documents</li>
+        <li>News reports and media outlets</li>
+        <li>Academic publications</li>
+        <li>Forums, blogs, and online communities</li>
+      </ul>
+      <p>Effective OSINT requires more than just data gathering—it demands critical thinking, source validation, and a structured approach to transform raw data into actionable intelligence.</p>
+
+      <h3>2. Legal and Ethical Boundaries</h3>
+      <p>Before conducting any OSINT investigation, it is vital to understand the legal frameworks that govern data collection and privacy. Here are essential guidelines:</p>
+      <ul>
+        <li><strong>Obtain Authorization:</strong> Always ensure you have explicit permission or legal authority to conduct investigations on targets.</li>
+        <li><strong>Respect Privacy:</strong> Avoid accessing private or protected data without consent.</li>
+        <li><strong>Comply with Laws:</strong> Abide by data protection laws such as GDPR (Europe), CCPA (California), CFAA (USA), and others relevant to your jurisdiction.</li>
+        <li><strong>Adhere to Platform Policies:</strong> Social media and websites have terms of service that prohibit unauthorized scraping or account impersonation.</li>
+      </ul>
+      <p>Ignoring these legalities can result in criminal charges, civil lawsuits, and reputational damage.</p>
+
+      <h3>3. Structured OSINT Methodologies</h3>
+      <p>A systematic approach to OSINT enhances accuracy and efficiency. The core steps include:</p>
+      <ol>
+        <li><strong>Planning and Scoping:</strong> Define investigation objectives, scope, and limitations.</li>
+        <li><strong>Data Collection:</strong> Identify reliable sources and collect relevant data.</li>
+        <li><strong>Data Processing:</strong> Organize and clean data, removing duplicates and irrelevant info.</li>
+        <li><strong>Analysis:</strong> Correlate data points, identify patterns, and validate information.</li>
+        <li><strong>Reporting:</strong> Compile findings with context and cite sources responsibly.</li>
+      </ol>
+      <p>Maintaining documentation and audit trails during each phase is critical for transparency and legal compliance.</p>
+
+      <h3>4. Essential OSINT Tools for Data Collection</h3>
+      <p>OSINT relies heavily on tools that facilitate efficient data gathering and analysis. Some of the essential categories and popular tools include:</p>
+      <ul>
+        <li><strong>Search Engines and Operators:</strong> Mastering advanced Google dorks, Bing, DuckDuckGo, and others help pinpoint specific information.</li>
+        <li><strong>Social Media Reconnaissance:</strong> Tools like <a href="https://www.maltego.com/" target="_blank" rel="noopener noreferrer">Maltego</a> and <a href="https://www.hootsuite.com/" target="_blank" rel="noopener noreferrer">Hootsuite</a> assist in mapping social networks and managing profiles.</li>
+        <li><strong>Metadata Extraction:</strong> Utilities such as <a href="https://exiftool.org/" target="_blank" rel="noopener noreferrer">ExifTool</a> reveal hidden data in images and documents.</li>
+        <li><strong>Domain and IP Investigation:</strong> Use <a href="https://www.whois.com/" target="_blank" rel="noopener noreferrer">Whois</a>, <a href="https://www.shodan.io/" target="_blank" rel="noopener noreferrer">Shodan</a>, and <a href="https://censys.io/" target="_blank" rel="noopener noreferrer">Censys</a> for internet asset mapping.</li>
+        <li><strong>Data Aggregators:</strong> Platforms like <a href="https://osintframework.com/" target="_blank" rel="noopener noreferrer">OSINT Framework</a> provide comprehensive resource indexes.</li>
+      </ul>
+
+      <h3>5. Advanced Search Operators</h3>
+      <p>Learning how to leverage search engine operators can dramatically refine results:</p>
+      <ul>
+        <li><code>site:</code> limits searches to specific domains.</li>
+        <li><code>filetype:</code> searches specific file types.</li>
+        <li><code>intitle:</code> searches within page titles.</li>
+        <li><code>inurl:</code> finds keywords in URLs.</li>
+        <li><code>-keyword</code> excludes terms.</li>
+      </ul>
+      <p>For example, <code>site:gov filetype:pdf "cybersecurity"</code> finds PDFs on government websites related to cybersecurity.</p>
+
+      <h3>6. Social Media Intelligence (SOCMINT)</h3>
+      <p>Social media is a treasure trove for OSINT investigations. Key steps include:</p>
+      <ul>
+        <li><strong>Profile Enumeration:</strong> Collect public profile data, friend lists, and activity timelines.</li>
+        <li><strong>Content Analysis:</strong> Extract insights from posts, images, videos, and comments.</li>
+        <li><strong>Network Mapping:</strong> Identify connections and influence patterns.</li>
+      </ul>
+      <p>Remember to respect user privacy settings and never attempt unauthorized access.</p>
+
+      <h3>7. Data Validation and Verification</h3>
+      <p>False or misleading information is common online. To ensure reliability:</p>
+      <ul>
+        <li>Cross-verify data using multiple independent sources.</li>
+        <li>Check timestamps and context to detect outdated or manipulated content.</li>
+        <li>Use reverse image search tools like <a href="https://tineye.com/" target="_blank" rel="noopener noreferrer">TinEye</a> or <a href="https://images.google.com/" target="_blank" rel="noopener noreferrer">Google Reverse Image Search</a> to verify photos.</li>
+      </ul>
+
+      <h3>8. Documentation and Reporting</h3>
+      <p>Good investigations culminate in clear, well-structured reports:</p>
+      <ul>
+        <li>Summarize key findings with supporting evidence.</li>
+        <li>Include screenshots, URLs, and data references.</li>
+        <li>Highlight limitations and assumptions.</li>
+        <li>Maintain confidentiality and anonymize sensitive info as required.</li>
+      </ul>
+
+      <h3>9. Staying Updated</h3>
+      <p>OSINT is a dynamic field, and staying current is vital:</p>
+      <ul>
+        <li>Follow trusted OSINT news sources and communities.</li>
+        <li>Regularly update your toolset and methodologies.</li>
+        <li>Participate in OSINT forums, workshops, and webinars.</li>
+      </ul>
+
+      <h3>10. Final Legal Reminder</h3>
+      <p>Never forget, the legality of OSINT depends on your jurisdiction and scope:</p>
+      <ul>
+        <li>Do not hack, phish, or attempt unauthorized access.</li>
+        <li>Respect copyright and intellectual property rights.</li>
+        <li>Always inform and get consent when necessary.</li>
+      </ul>
+
+      <p>Misuse of OSINT techniques can result in severe penalties, so approach every investigation responsibly.</p>
+
+      <p style="margin-top: 3rem; font-style: italic; color: var(--highlight-brown);">
+        Written and curated by <strong>0xHM</strong> | For awareness, education, and responsible OSINT use.
+      </p>
+    </div>
+  </div>
+  <script>
+  const starsBg = document.getElementById('stars-bg');
+  const starsCount = 150;
+  const stars = [];
+
+  for (let i = 0; i < starsCount; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    
+    const size = Math.random() * 2 + 0.5;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.opacity = 0.8;
+
+    star.x = Math.random() * window.innerWidth;
+    star.y = Math.random() * window.innerHeight;
+
+    star.vx = (Math.random() - 0.5) * 0.3;
+    star.vy = (Math.random() - 0.5) * 0.3;
+
+    star.style.left = star.x + 'px';
+    star.style.top = star.y + 'px';
+
+    starsBg.appendChild(star);
+    stars.push(star);
+  }
+
+  function animateStars() {
+    for (const star of stars) {
+      star.x += star.vx;
+      star.y += star.vy;
+
+      if (star.x < 0 || star.x > window.innerWidth) star.vx = -star.vx;
+      if (star.y < 0 || star.y > window.innerHeight) star.vy = -star.vy;
+
+      star.style.left = star.x + 'px';
+      star.style.top = star.y + 'px';
+    }
+    requestAnimationFrame(animateStars);
+  }
+
+  animateStars();
+
+  window.addEventListener('resize', () => {
+    for (const star of stars) {
+      if (star.x > window.innerWidth) star.x = window.innerWidth;
+      if (star.y > window.innerHeight) star.y = window.innerHeight;
+    }
+  });
+</script>
+<div style="display: flex; gap: 1rem; justify-content: center; margin-top: 3rem;">
+  <button
+    onclick="history.back()"
+    style="
+      border: 1px solid var(--light-brown);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--light-brown);
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 100px;
+      transition: all 0.3s ease;
+    "
+    onmouseover="this.style.boxShadow='0 0 8px var(--light-brown)'"
+    onmouseout="this.style.boxShadow='none'">
+    &lt; Go Back
+  </button>
+
+  <button
+    onclick="window.location.href='../../../0xhm.html'"
+    style="
+      border: 1px solid var(--light-brown);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--light-brown);
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 120px;
+      transition: all 0.3s ease;
+    "
+    onmouseover="this.style.boxShadow='0 0 8px var(--light-brown)'"
+    onmouseout="this.style.boxShadow='none'">
+    Back to Home
+  </button>
+
+  <button
+    onclick="window.location.href='Deep_Dive_OSINT_Part_2.html'"
+    style="
+      border: 1px solid var(--light-brown);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--light-brown);
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 120px;
+      transition: all 0.3s ease;
+    "
+    onmouseover="this.style.boxShadow='0 0 8px var(--light-brown)'"
+    onmouseout="this.style.boxShadow='none'">
+    Next Steps &gt;
+  </button>
+</div>
+
+<div style="height: 50px;"></div>
+</body>
+</html>
