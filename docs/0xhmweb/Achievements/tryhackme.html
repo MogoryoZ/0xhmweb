@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>0xHM | TryHackMe</title>
+  <style>
+    :root {
+      --hacker-yellow: #FFD700;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: white;
+      font-family: 'Courier New', monospace;
+      background-color: #000;
+      overflow-x: hidden;
+    }
+
+    #stars-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+      overflow: hidden;
+    }
+
+    .center-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .dynamic-name {
+      font-size: 3rem;
+      margin: 0;
+      color: var(--hacker-yellow);
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+      letter-spacing: 5px;
+    }
+
+    .certifications-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 3rem auto;
+    }
+
+    .certification-card {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--hacker-yellow);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .certification-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .certification-image {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+    }
+
+    .certification-title {
+      font-size: 1.2rem;
+      color: var(--hacker-yellow);
+      margin-bottom: 0.3rem;
+    }
+
+    .certification-desc {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .certification-date {
+      color: #aaa;
+      font-size: 0.85rem;
+    }
+
+    .back-button {
+      margin-top: 2rem;
+      padding: 0.8rem 1.5rem;
+      background: transparent;
+      border: 1px solid var(--hacker-yellow);
+      color: var(--hacker-yellow);
+      font-family: 'Courier New', monospace;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 30px;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 215, 0, 0.1);
+      text-shadow: 0 0 10px var(--hacker-yellow);
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle var(--duration) infinite ease-in-out;
+      opacity: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div id="stars-bg"></div>
+
+  <div class="center-container">
+    <h1 class="dynamic-name">TryHackMe Certifications</h1>
+
+    <div class="certifications-container">
+      <div class="certification-card">
+        <h3 class="certification-title">SOC Level 1</h3>
+        <p class="certification-desc">Fundamentals of Security Operations Center (SOC) processes and procedures.</p>
+        <img src="images/TryHackMe/Soc Level 1.png" alt="SOC Level 1" class="certification-image">
+      </div>
+      
+      <div class="certification-card">
+        <h3 class="certification-title">Offensive Pentest</h3>
+        <p class="certification-desc">Hands-on penetration testing skills covering real-world offensive tactics.</p>
+        <img src="images/TryHackMe/Offensive Pentesting.png" alt="Offensive Pentest" class="certification-image">
+      </div>
+      
+      <div class="certification-card">
+        <h3 class="certification-title">Jr Penetration Testing</h3>
+        <p class="certification-desc">Introductory penetration testing skills for junior security professionals.</p>
+        <img src="images/TryHackMe/Jr Penetration Tester.png" alt="Jr Penetration Testing" class="certification-image">
+      </div>
+      
+      <div class="certification-card">
+        <h3 class="certification-title">Security Engineer</h3>
+        <p class="certification-desc">Advanced security concepts and engineering principles for protecting assets.</p>
+        <img src="images/TryHackMe/Security Engineer.png" alt="Security Engineer" class="certification-image">
+      </div>
+      
+      <div class="certification-card">
+        <h3 class="certification-title">DevSecOps</h3>
+        <p class="certification-desc">Integrating security practices into DevOps pipelines and workflows.</p>
+        <img src="images/TryHackMe/DevSecOps.png" alt="DevSecOps" class="certification-image">
+      </div>
+      
+      <div class="certification-card">
+        <h3 class="certification-title">CompTIA Pentest+</h3>
+        <p class="certification-desc">Industry-recognized penetration testing certification focused on methodology and tools.</p>
+        <img src="images/TryHackMe/ComTIA Pentest+.png" alt="CompTIA Pentest+" class="certification-image">
+      </div>
+      
+      <div class="certification-card">
+        <h3 class="certification-title">Web Fundamentals</h3>
+        <p class="certification-desc">Basics of web technologies and security fundamentals for web applications.</p>
+        <img src="images/TryHackMe/Web Fundamentals.png" alt="Web Fundamentals" class="certification-image">
+      </div>
+      
+      <div class="certification-card">
+        <h3 class="certification-title">Web Application Pentesting</h3>
+        <p class="certification-desc">Techniques and tools for assessing the security of web applications.</p>
+        <img src="images/TryHackMe/Web Application Pentesting.png" alt="Web Application Pentesting" class="certification-image">
+      </div>
+      
+      <div class="certification-card">
+        <h3 class="certification-title">Cyber Security 101</h3>
+        <p class="certification-desc">Introduction to basic cybersecurity principles and concepts.</p>
+        <img src="images/TryHackMe/Cyber Security 101.png" alt="Cyber Security 101" class="certification-image">
+      </div>
+      
+      <div class="certification-card">
+        <h3 class="certification-title">Pre Security</h3>
+        <p class="certification-desc">Foundational knowledge for newcomers to cybersecurity.</p>
+        <img src="images/TryHackMe/Pre Security.png" alt="Pre Security" class="certification-image">
+      </div>
+    </div>
+<div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+      <button class="back-button" onclick="window.history.back()">← Go Back</button>
+    <button class="back-button" onclick="window.location.href='../index.html'">Back to Home</button>
+  </div>
+
+  <script>
+  const starsBg = document.getElementById('stars-bg');
+  const starsCount = 150;
+  const stars = [];
+
+  for (let i = 0; i < starsCount; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    
+    const size = Math.random() * 2 + 0.5;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.opacity = 0.8;
+
+    star.x = Math.random() * window.innerWidth;
+    star.y = Math.random() * window.innerHeight;
+
+    star.vx = (Math.random() - 0.5) * 0.3;
+    star.vy = (Math.random() - 0.5) * 0.3;
+
+    star.style.left = star.x + 'px';
+    star.style.top = star.y + 'px';
+
+    starsBg.appendChild(star);
+    stars.push(star);
+  }
+
+  function animateStars() {
+    for (const star of stars) {
+      star.x += star.vx;
+      star.y += star.vy;
+
+      if (star.x < 0 || star.x > window.innerWidth) star.vx = -star.vx;
+      if (star.y < 0 || star.y > window.innerHeight) star.vy = -star.vy;
+
+      star.style.left = star.x + 'px';
+      star.style.top = star.y + 'px';
+    }
+    requestAnimationFrame(animateStars);
+  }
+
+  animateStars();
+
+  window.addEventListener('resize', () => {
+    for (const star of stars) {
+      if (star.x > window.innerWidth) star.x = window.innerWidth;
+      if (star.y > window.innerHeight) star.y = window.innerHeight;
+    }
+  });
+</script>
+  <div style="height: 100px;"></div>
+</body>
+</html>
